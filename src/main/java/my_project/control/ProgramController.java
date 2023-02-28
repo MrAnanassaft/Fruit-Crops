@@ -1,6 +1,7 @@
 package my_project.control;
 
 import KAGO_framework.control.ViewController;
+import KAGO_framework.model.GraphicalObject;
 import my_project.Config;
 import my_project.model.Apple;
 import my_project.model.Pear;
@@ -39,7 +40,8 @@ public class ProgramController {
      */
     public void startProgram() {
         double xPos = Math.random()*(Config.WINDOW_WIDTH-50) + 50;
-        double yPos = Math.random()*(Config.WINDOW_HEIGHT-50) + 50;
+        double yPos = 500;//Math.random()*(Config.WINDOW_HEIGHT-50) + 50;
+
         apple01 = new Apple(xPos, yPos);
         viewController.draw(apple01);
 
@@ -61,7 +63,10 @@ public class ProgramController {
         //TODO 08 Nachdem Sie die TODOs 01-07 erledigt haben: Setzen Sie um, dass im Falle einer Kollision (siehe TODO 06 bzw. 07) zwischen dem Spieler und dem Apfel bzw. dem Spieler und der Birne, die jumpBack()-Methode von dem Apfel bzw. der Birne aufgerufen wird.
         //Weitere TODOs folgen und werden im Unterricht formuliert. Spätestens nach TODO 08 sollte der Aufbau des Projekts durchdacht werden.
     }
+    private boolean checkAndHandleCollision(Apple a){
+        return a.collidesWith(player01);
 
+    }
     //TODO 06 Fügen Sie eine Methode checkAndHandleCollision(Apple a) hinzu. Diese gibt true zurück, falls das Apple-Objekt mit dem Player-Objekt kollidiert. Nutzen Sie hierzu die collidesWith-Methode der Klasse GraphicalObject.
 
     //TODO 07 Fügen Sie eine Methode checkAndHandleCollision(Pear p) hinzu. Diese gibt true zurück, falls das Pear-Objekt mit dem Player-Objekt kollidiert. Nutzen Sie hierzu die collidesWith-Methode der Klasse GraphicalObject.

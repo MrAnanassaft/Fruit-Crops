@@ -6,6 +6,7 @@ import my_project.Config;
 import my_project.model.Apple;
 import my_project.model.Pear;
 import my_project.model.Player;
+import my_project.model.PowerApple;
 
 /**
  * Ein Objekt der Klasse ProgramController dient dazu das Programm zu steuern. Die updateProgram - Methode wird
@@ -20,7 +21,17 @@ public class ProgramController {
     private ViewController viewController;  // diese Referenz soll auf ein Objekt der Klasse viewController zeigen. Über dieses Objekt wird das Fenster gesteuert.
 
     private Apple apple01;
+    private Apple apple02;
+    private Apple apple03;
+    private Apple apple04;
+    private Apple apple05;
+
     private Pear pear01;
+    private Pear pear02;
+    private Pear pear03;
+    private Pear pear04;
+    private Pear pear05;
+
     private Player player01;
 
     /**
@@ -39,20 +50,37 @@ public class ProgramController {
      * Sie erstellt die leeren Datenstrukturen, zu Beginn nur eine Queue
      */
     public void startProgram() {
-        double xPos = Math.random()*(Config.WINDOW_WIDTH-50) + 50;
-        double yPos = 500;//Math.random()*(Config.WINDOW_HEIGHT-50) + 50;
 
-        apple01 = new Apple(xPos, yPos);
+        PowerApple pa1 = new PowerApple(100,100);
+        viewController.draw(pa1);
+
+        apple01 = new Apple(Math.random()*(Config.WINDOW_WIDTH-50) + 50, Math.random()*(Config.WINDOW_HEIGHT-50) + 50);
         viewController.draw(apple01);
+        apple02 = new Apple(Math.random()*(Config.WINDOW_WIDTH-50) + 50, Math.random()*(Config.WINDOW_HEIGHT-50) + 50);
+        viewController.draw(apple02);
+        apple03 = new Apple(Math.random()*(Config.WINDOW_WIDTH-50) + 50, Math.random()*(Config.WINDOW_HEIGHT-50) + 50);
+        viewController.draw(apple03);
+        apple04 = new Apple(Math.random()*(Config.WINDOW_WIDTH-50) + 50, Math.random()*(Config.WINDOW_HEIGHT-50) + 50);
+        viewController.draw(apple04);
+        apple05 = new Apple(Math.random()*(Config.WINDOW_WIDTH-50) + 50, Math.random()*(Config.WINDOW_HEIGHT-50) + 50);
+        viewController.draw(apple05);
 
-        xPos = Math.random()*(Config.WINDOW_WIDTH-50) + 50;
-        yPos = Math.random()*(Config.WINDOW_HEIGHT-50) + 50;
-        pear01 = new Pear(xPos, yPos);
+
+        pear01 = new Pear(Math.random()*(Config.WINDOW_WIDTH-50) + 50, Math.random()*(Config.WINDOW_HEIGHT-50) + 50);
         viewController.draw(pear01);
+        pear02 = new Pear(Math.random()*(Config.WINDOW_WIDTH-50) + 50, Math.random()*(Config.WINDOW_HEIGHT-50) + 50);
+        viewController.draw(pear02);
+        pear03 = new Pear(Math.random()*(Config.WINDOW_WIDTH-50) + 50, Math.random()*(Config.WINDOW_HEIGHT-50) + 50);
+        viewController.draw(pear03);
+        pear04 = new Pear(Math.random()*(Config.WINDOW_WIDTH-50) + 50, Math.random()*(Config.WINDOW_HEIGHT-50) + 50);
+        viewController.draw(pear04);
+        pear05 = new Pear(Math.random()*(Config.WINDOW_WIDTH-50) + 50, Math.random()*(Config.WINDOW_HEIGHT-50) + 50);
+        viewController.draw(pear05);
 
         player01 = new Player(50, Config.WINDOW_HEIGHT-100);
         viewController.draw(player01);
         viewController.register(player01);
+
     }
 
     /**
@@ -62,12 +90,34 @@ public class ProgramController {
     public void updateProgram(double dt){
         //TODO 08 Nachdem Sie die TODOs 01-07 erledigt haben: Setzen Sie um, dass im Falle einer Kollision (siehe TODO 06 bzw. 07) zwischen dem Spieler und dem Apfel bzw. dem Spieler und der Birne, die jumpBack()-Methode von dem Apfel bzw. der Birne aufgerufen wird.
         //Weitere TODOs folgen und werden im Unterricht formuliert. Spätestens nach TODO 08 sollte der Aufbau des Projekts durchdacht werden.
+        if(checkAndHandleCollision(apple01)){
+            apple01.jumpBack();
+        }
+        if(checkAndHandleCollision(apple02)){
+            apple02.jumpBack();
+        }
+        if(checkAndHandleCollision(apple03)){
+            apple03.jumpBack();
+        }
+        if(checkAndHandleCollision(apple04)){
+            apple04.jumpBack();
+        }
+        if(checkAndHandleCollision(apple05)){
+            apple05.jumpBack();
+        }
+
+        if(checkAndHandleCollision(pear01)){
+            pear01.jumpBack();
+        }
     }
     private boolean checkAndHandleCollision(Apple a){
         return a.collidesWith(player01);
-
     }
     //TODO 06 Fügen Sie eine Methode checkAndHandleCollision(Apple a) hinzu. Diese gibt true zurück, falls das Apple-Objekt mit dem Player-Objekt kollidiert. Nutzen Sie hierzu die collidesWith-Methode der Klasse GraphicalObject.
 
     //TODO 07 Fügen Sie eine Methode checkAndHandleCollision(Pear p) hinzu. Diese gibt true zurück, falls das Pear-Objekt mit dem Player-Objekt kollidiert. Nutzen Sie hierzu die collidesWith-Methode der Klasse GraphicalObject.
+
+    private boolean checkAndHandleCollision(Pear p){
+        return p.collidesWith(player01);
+    }
 }

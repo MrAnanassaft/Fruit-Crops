@@ -11,7 +11,7 @@ import java.awt.event.KeyEvent;
 
 public class Player extends InteractiveGraphicalObject {
 
-
+    private double timer;
     //Attribute
     private double speed;
     private int points;
@@ -28,6 +28,7 @@ public class Player extends InteractiveGraphicalObject {
         width = 80;
         height = 40;
 
+
         this.keyToGoLeft    = KeyEvent.VK_A;
         this.keyToGoRight   = KeyEvent.VK_D;
         this.direction      = -1; //-1 keine Bewegung, 0 nach rechts, 2 nach links
@@ -43,6 +44,7 @@ public class Player extends InteractiveGraphicalObject {
 
     @Override
     public void update(double dt) {
+        timer = timer + dt;
         //TODO 05 Überarbeiten Sie die Update-Methode derart, dass ein Player-Objekt nicht den Bildschirm verlassen kann und immer zu sehen ist.
         if(direction == 0){
             if(x < Config.WINDOW_WIDTH-19-this.width){
@@ -76,5 +78,9 @@ public class Player extends InteractiveGraphicalObject {
         if(key == keyToGoRight){
             direction = -1;
         }
+    }
+
+    public void speedUp(double speed){
+        this.speed = speed;
     }
 }

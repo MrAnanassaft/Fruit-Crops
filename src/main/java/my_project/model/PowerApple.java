@@ -7,19 +7,26 @@ import java.awt.*;
 public class PowerApple extends Apple{
         private double w;
         private double h;
+        private double speedBuff;
     public PowerApple(double x,double y){
         super(x,y);
         w = 50;
         h = 50;
+
     }
 
     public void draw(DrawTool drawTool) {
         super.draw(drawTool);
-        drawTool.setCurrentColor(new Color(167, 30, 30));
-        drawTool.drawFilledRectangle(x-w/2,y-h/2,w,h);
+        drawTool.setCurrentColor(new Color(88, 48, 6));
+        drawTool.drawFilledRectangle(x-w/6,y-h/4-radius,w/3,h/2);
     }
 
     public void update(){
 
+    }
+
+    public double getSpeedBuff(){
+        this.speedBuff = Math.random()*100+100;
+        return speedBuff;
     }
 }

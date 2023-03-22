@@ -12,6 +12,8 @@ import java.awt.event.KeyEvent;
 public class Player extends InteractiveGraphicalObject {
 
     private double timer;
+    private double speedTimer;
+    private boolean speedHIHI;
     //Attribute
     private double speed;
     private int points;
@@ -24,6 +26,8 @@ public class Player extends InteractiveGraphicalObject {
     public Player(double x, double y){
         this.x = x;
         this.y = y;
+        speedTimer = 0;
+        speedHIHI = false;
         speed = 150;
         width = 80;
         height = 40;
@@ -79,8 +83,29 @@ public class Player extends InteractiveGraphicalObject {
             direction = -1;
         }
     }
-
+    public boolean getSpeedHIHI(){
+        return speedHIHI;
+    }
+    public void setTrueSpeedHIHI(){
+        speedHIHI = true;
+    }
+    public void setFalseSpeedHIHI(){
+        speedHIHI = false;
+    }
     public void speedUp(double speed){
         this.speed = speed;
     }
+    public double getSpeed(){
+        return speed;
+    }
+    public void setSpeedTimer(double dt){
+        speedTimer = speedTimer + dt;
+    }
+    public void resetSpeedTimer(){
+        speedTimer = 0;
+    }
+    public double getSpeedTimer(){
+        return speedTimer;
+    }
+
 }

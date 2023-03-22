@@ -32,6 +32,8 @@ public class ProgramController {
     private Pear pear04;
     private Pear pear05;
 
+    private PowerApple PowerA1;
+
     private Player player01;
 
     /**
@@ -51,8 +53,8 @@ public class ProgramController {
      */
     public void startProgram() {
 
-        PowerApple pa1 = new PowerApple(100,100);
-        viewController.draw(pa1);
+        PowerA1 = new PowerApple(100,100);
+        viewController.draw(PowerA1);
 
         apple01 = new Apple(Math.random()*(Config.WINDOW_WIDTH-50) + 50, Math.random()*(Config.WINDOW_HEIGHT-50) + 50);
         viewController.draw(apple01);
@@ -109,6 +111,34 @@ public class ProgramController {
         if(checkAndHandleCollision(pear01)){
             pear01.jumpBack();
         }
+        if(checkAndHandleCollision(pear02)){
+            pear02.jumpBack();
+        }
+        if(checkAndHandleCollision(pear03)){
+            pear03.jumpBack();
+        }
+        if(checkAndHandleCollision(pear04)){
+            pear04.jumpBack();
+        }
+        if(checkAndHandleCollision(pear05)){
+            pear05.jumpBack();
+        }
+
+        if(checkAndHandleCollision(PowerA1)){
+            PowerA1.jumpBack();
+            player01.speedUp(PowerA1.getSpeedBuff()+ player01.getSpeed());
+            player01.setTrueSpeedHIHI();
+        }
+        if(player01.getSpeedHIHI() == true){
+            player01.setSpeedTimer(dt);
+        }
+        if(player01.getSpeedTimer() > 5){
+            player01.speedUp(150);
+            player01.setFalseSpeedHIHI();
+            player01.resetSpeedTimer();
+
+        }
+        System.out.println(player01.getSpeed());
     }
     private boolean checkAndHandleCollision(Apple a){
         return a.collidesWith(player01);

@@ -36,6 +36,8 @@ public class ProgramController {
     private Player player01;
     private Player player02;
 
+    private Background background;
+
     /**
      * Konstruktor
      * Dieser legt das Objekt der Klasse ProgramController an, das den Programmfluss steuert.
@@ -52,6 +54,9 @@ public class ProgramController {
      * Sie erstellt die leeren Datenstrukturen, zu Beginn nur eine Queue
      */
     public void startProgram() {
+
+        background = new Background();
+        viewController.draw(background);
 
         PowerA1 = new PowerApple(100,100);
         viewController.draw(PowerA1);
@@ -91,6 +96,8 @@ public class ProgramController {
         viewController.register(player01);
         viewController.draw(player02);
         viewController.register(player02);
+
+
     }
 
     /**
@@ -116,15 +123,19 @@ public class ProgramController {
 
         if(checkAndHandleCollision(pear01)){
             pear01.jumpBack();
+            pear01.setPrintBool();
         }
         if(checkAndHandleCollision(pear02)){
             pear02.jumpBack();
+            pear02.setPrintBool();
         }
         if(checkAndHandleCollision(pear03)){
             pear03.jumpBack();
+            pear03.setPrintBool();
         }
         if(checkAndHandleCollision(pear04)){
             pear04.jumpBack();
+            pear04.setPrintBool();
         }
         if(checkAndHandleCollision(banana1)){
             banana1.jumpBack();
@@ -173,15 +184,19 @@ public class ProgramController {
 
         if(checkAndHandleCollision2(pear01)){
             pear01.jumpBack();
+            pear01.setPrintBool();
         }
         if(checkAndHandleCollision2(pear02)){
             pear02.jumpBack();
+            pear02.setPrintBool();
         }
         if(checkAndHandleCollision2(pear03)){
             pear03.jumpBack();
+            pear03.setPrintBool();
         }
         if(checkAndHandleCollision2(pear04)){
             pear04.jumpBack();
+            pear04.setPrintBool();
         }
         if(checkAndHandleCollision2(banana1)){
             banana1.jumpBack();

@@ -16,6 +16,7 @@ public class Banana extends Fruit{
     public void draw(DrawTool drawTool){
         drawTool.setCurrentColor(new Color(255, 255, 0));
         drawTool.drawFilledRectangle(x,y,width,height);
+
     }
 
     public void update(double dt){

@@ -13,7 +13,7 @@ public class Player extends InteractiveGraphicalObject {
 
     private double timer;
     private double speedTimer;
-    private boolean speedHIHI;
+    private boolean speedBoolean;
     //Attribute
     private double speed;
     private int points;
@@ -23,18 +23,18 @@ public class Player extends InteractiveGraphicalObject {
     private int keyToGoRight;
     private int direction;
 
-    public Player(double x, double y){
+    public Player(double x, double y, int leftKey, int rightKey){
         this.x = x;
         this.y = y;
         speedTimer = 0;
-        speedHIHI = false;
+        speedBoolean = false;
         speed = 150;
         width = 80;
         height = 40;
 
 
-        this.keyToGoLeft    = KeyEvent.VK_A;
-        this.keyToGoRight   = KeyEvent.VK_D;
+        this.keyToGoLeft    = leftKey; //KeyEvent.VK_A;
+        this.keyToGoRight   = rightKey;//KeyEvent.VK_D;
         this.direction      = -1; //-1 keine Bewegung, 0 nach rechts, 2 nach links
     }
 
@@ -83,14 +83,15 @@ public class Player extends InteractiveGraphicalObject {
             direction = -1;
         }
     }
-    public boolean getSpeedHIHI(){
-        return speedHIHI;
+
+    public boolean getSpeedBoolean(){
+        return speedBoolean;
     }
-    public void setTrueSpeedHIHI(){
-        speedHIHI = true;
+    public void setTrueSpeed(){
+        speedBoolean = true;
     }
-    public void setFalseSpeedHIHI(){
-        speedHIHI = false;
+    public void setFalseSpeed(){
+        speedBoolean = false;
     }
     public void speedUp(double speed){
         this.speed = speed;

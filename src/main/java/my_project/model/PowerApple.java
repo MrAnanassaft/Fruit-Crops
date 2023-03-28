@@ -17,7 +17,7 @@ public class PowerApple extends Apple{
 
     public void draw(DrawTool drawTool) {
         super.draw(drawTool);
-        drawTool.setCurrentColor(new Color(88, 48, 6));
+        drawTool.setCurrentColor(new Color(93, 56, 21));
         drawTool.drawFilledRectangle(x-w/6,y-h/4-radius,w/3,h/2);
     }
 

@@ -3,4 +3,9 @@
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel target="15" />
   </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="KAGO4_Project.main" options="--add-modules java.desktop,java.naming" />
+    </option>
+  </component>
 </project>

@@ -3,10 +3,8 @@ package my_project.control;
 import KAGO_framework.control.ViewController;
 import KAGO_framework.model.GraphicalObject;
 import my_project.Config;
-import my_project.model.Apple;
-import my_project.model.Pear;
-import my_project.model.Player;
-import my_project.model.PowerApple;
+import my_project.model.*;
+import java.awt.event.KeyEvent;
 
 /**
  * Ein Objekt der Klasse ProgramController dient dazu das Programm zu steuern. Die updateProgram - Methode wird
@@ -24,17 +22,19 @@ public class ProgramController {
     private Apple apple02;
     private Apple apple03;
     private Apple apple04;
-    private Apple apple05;
+
+    private PowerApple PowerA2;
+    private PowerApple PowerA1;
 
     private Pear pear01;
     private Pear pear02;
     private Pear pear03;
     private Pear pear04;
-    private Pear pear05;
-
-    private PowerApple PowerA1;
+    private PowerPear PowerP1;
+    private Banana banana1;
 
     private Player player01;
+    private Player player02;
 
     /**
      * Konstruktor
@@ -55,6 +55,8 @@ public class ProgramController {
 
         PowerA1 = new PowerApple(100,100);
         viewController.draw(PowerA1);
+        PowerA2 = new PowerApple(Math.random()*(Config.WINDOW_WIDTH-50) + 50, Math.random()*(Config.WINDOW_HEIGHT-50) + 50);
+        viewController.draw(PowerA2);
 
         apple01 = new Apple(Math.random()*(Config.WINDOW_WIDTH-50) + 50, Math.random()*(Config.WINDOW_HEIGHT-50) + 50);
         viewController.draw(apple01);
@@ -64,8 +66,7 @@ public class ProgramController {
         viewController.draw(apple03);
         apple04 = new Apple(Math.random()*(Config.WINDOW_WIDTH-50) + 50, Math.random()*(Config.WINDOW_HEIGHT-50) + 50);
         viewController.draw(apple04);
-        apple05 = new Apple(Math.random()*(Config.WINDOW_WIDTH-50) + 50, Math.random()*(Config.WINDOW_HEIGHT-50) + 50);
-        viewController.draw(apple05);
+
 
 
         pear01 = new Pear(Math.random()*(Config.WINDOW_WIDTH-50) + 50, Math.random()*(Config.WINDOW_HEIGHT-50) + 50);
@@ -76,13 +77,20 @@ public class ProgramController {
         viewController.draw(pear03);
         pear04 = new Pear(Math.random()*(Config.WINDOW_WIDTH-50) + 50, Math.random()*(Config.WINDOW_HEIGHT-50) + 50);
         viewController.draw(pear04);
-        pear05 = new Pear(Math.random()*(Config.WINDOW_WIDTH-50) + 50, Math.random()*(Config.WINDOW_HEIGHT-50) + 50);
-        viewController.draw(pear05);
 
-        player01 = new Player(50, Config.WINDOW_HEIGHT-100);
+        PowerP1 = new PowerPear(Math.random()*(Config.WINDOW_WIDTH-50) + 50, Math.random()*(Config.WINDOW_HEIGHT-50) + 50);
+        viewController.draw(PowerP1);
+
+        banana1 = new Banana(Math.random()*(Config.WINDOW_WIDTH-50) + 50, Math.random()*(Config.WINDOW_HEIGHT-50) + 50);
+        viewController.draw(banana1);
+
+        player01 = new Player(50, Config.WINDOW_HEIGHT-100,KeyEvent.VK_A,KeyEvent.VK_D);
+        player02 = new Player(870, Config.WINDOW_HEIGHT-100,KeyEvent.VK_LEFT,KeyEvent.VK_RIGHT);
+
         viewController.draw(player01);
         viewController.register(player01);
-
+        viewController.draw(player02);
+        viewController.register(player02);
     }
 
     /**
@@ -104,9 +112,7 @@ public class ProgramController {
         if(checkAndHandleCollision(apple04)){
             apple04.jumpBack();
         }
-        if(checkAndHandleCollision(apple05)){
-            apple05.jumpBack();
-        }
+
 
         if(checkAndHandleCollision(pear01)){
             pear01.jumpBack();
@@ -120,34 +126,118 @@ public class ProgramController {
         if(checkAndHandleCollision(pear04)){
             pear04.jumpBack();
         }
-        if(checkAndHandleCollision(pear05)){
-            pear05.jumpBack();
+        if(checkAndHandleCollision(banana1)){
+            banana1.jumpBack();
+        }
+        if(checkAndHandleCollision(PowerP1)){
+            PowerP1.jumpBack();
+        }
+
+        if(checkAndHandleCollision(PowerA2)){
+            PowerA2.jumpBack();
+            player01.speedUp(PowerA2.getSpeedBuff()+ player01.getSpeed());
+            player01.setTrueSpeed();
+            player01.resetSpeedTimer();
         }
 
         if(checkAndHandleCollision(PowerA1)){
             PowerA1.jumpBack();
             player01.speedUp(PowerA1.getSpeedBuff()+ player01.getSpeed());
-            player01.setTrueSpeedHIHI();
+            player01.setTrueSpeed();
+            player01.resetSpeedTimer();
         }
-        if(player01.getSpeedHIHI() == true){
+        if(player01.getSpeedBoolean() == true){
             player01.setSpeedTimer(dt);
         }
         if(player01.getSpeedTimer() > 5){
             player01.speedUp(150);
-            player01.setFalseSpeedHIHI();
+            player01.setFalseSpeed();
             player01.resetSpeedTimer();
-
         }
+
+
+
+        if(checkAndHandleCollision2(apple01)){
+            apple01.jumpBack();
+        }
+        if(checkAndHandleCollision2(apple02)){
+            apple02.jumpBack();
+        }
+        if(checkAndHandleCollision2(apple03)){
+            apple03.jumpBack();
+        }
+        if(checkAndHandleCollision2(apple04)){
+            apple04.jumpBack();
+        }
+
+
+        if(checkAndHandleCollision2(pear01)){
+            pear01.jumpBack();
+        }
+        if(checkAndHandleCollision2(pear02)){
+            pear02.jumpBack();
+        }
+        if(checkAndHandleCollision2(pear03)){
+            pear03.jumpBack();
+        }
+        if(checkAndHandleCollision2(pear04)){
+            pear04.jumpBack();
+        }
+        if(checkAndHandleCollision2(banana1)){
+            banana1.jumpBack();
+        }
+        if(checkAndHandleCollision2(PowerP1)){
+            PowerP1.jumpBack();
+        }
+
+
+        if(checkAndHandleCollision2(PowerA2)){
+            PowerA2.jumpBack();
+            player02.speedUp(PowerA2.getSpeedBuff()+ player02.getSpeed());
+            player02.setTrueSpeed();
+            player02.resetSpeedTimer();
+        }
+
+        if(checkAndHandleCollision2(PowerA1)){
+            PowerA1.jumpBack();
+            player02.speedUp(PowerA1.getSpeedBuff()+ player02.getSpeed());
+            player02.setTrueSpeed();
+            player02.resetSpeedTimer();
+        }
+        if(player02.getSpeedBoolean() == true){
+            player02.setSpeedTimer(dt);
+        }
+        if(player02.getSpeedTimer() > 5){
+            player02.speedUp(150);
+            player02.setFalseSpeed();
+            player02.resetSpeedTimer();
+        }
+
+
+
         System.out.println(player01.getSpeed());
     }
     private boolean checkAndHandleCollision(Apple a){
         return a.collidesWith(player01);
     }
+    private boolean checkAndHandleCollision(Pear p){
+        return p.collidesWith(player01);
+    }
+    private boolean checkAndHandleCollision(Banana b){
+        return b.collidesWith(player01);
+    }
+
+    private boolean checkAndHandleCollision2(Apple a2){
+        return a2.collidesWith(player02);
+    }
+    private boolean checkAndHandleCollision2(Pear p2){
+        return p2.collidesWith(player02);
+    }
+    private boolean checkAndHandleCollision2(Banana b2){
+        return b2.collidesWith(player02);
+    }
     //TODO 06 Fügen Sie eine Methode checkAndHandleCollision(Apple a) hinzu. Diese gibt true zurück, falls das Apple-Objekt mit dem Player-Objekt kollidiert. Nutzen Sie hierzu die collidesWith-Methode der Klasse GraphicalObject.
 
     //TODO 07 Fügen Sie eine Methode checkAndHandleCollision(Pear p) hinzu. Diese gibt true zurück, falls das Pear-Objekt mit dem Player-Objekt kollidiert. Nutzen Sie hierzu die collidesWith-Methode der Klasse GraphicalObject.
 
-    private boolean checkAndHandleCollision(Pear p){
-        return p.collidesWith(player01);
-    }
 }

@@ -11,6 +11,7 @@ public class PowerPear extends Pear{
         super(x,y);
         w = 50;
         h = 50;
+        points = -5;
     }
 
     public void draw(DrawTool drawTool){

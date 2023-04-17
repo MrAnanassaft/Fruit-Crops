@@ -11,6 +11,7 @@ public class Banana extends Fruit{
         super(x,y);
         width = 20;
         height = 50;
+        points = 2;
     }
 
     public void draw(DrawTool drawTool){
@@ -28,4 +29,5 @@ public class Banana extends Fruit{
         this.y = 0;
         this.x = Math.random()*(Config.WINDOW_WIDTH-width);
     }
+
 }

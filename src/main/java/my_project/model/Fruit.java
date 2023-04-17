@@ -7,6 +7,8 @@ public class Fruit extends GraphicalObject {
 
     protected double speed;
     protected double timer;
+
+    protected  int points;
     public Fruit(double x, double y){
         this.x = x;
         this.y = y;
@@ -23,4 +25,8 @@ public class Fruit extends GraphicalObject {
     }
 
     public void jumpBack(){}
+
+    public int getPoints(){
+        return points;
+    }
 }

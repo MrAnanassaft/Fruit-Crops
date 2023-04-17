@@ -2,6 +2,7 @@ package my_project.model;
 
 import KAGO_framework.model.GraphicalObject;
 import KAGO_framework.view.DrawTool;
+//import my_project.model.Player;
 
 import java.awt.*;
 
@@ -12,6 +13,9 @@ import java.awt.*;
  */
 
 public class Background extends GraphicalObject {
+
+
+
 
     //Referenzen
     String chosenPhrase;
@@ -26,13 +30,18 @@ public class Background extends GraphicalObject {
 
 
     public Background(){
+
         chosenPhrase = phrases[(int)(Math.random()*phrases.length)];
     }
 
     @Override
     public void draw(DrawTool drawTool) {
-        drawTool.setCurrentColor(new Color(255, 255, 255,255));
-        drawTool.drawFilledRectangle(0,0,1600,1024);
+
+        drawTool.setCurrentColor(new Color(13, 180, 245));
+        drawTool.drawFilledRectangle(0,0,1600,512);
+        drawTool.setCurrentColor(new Color(43, 183, 24));
+        drawTool.drawFilledRectangle(0,512,1600,512);
+
     }
 
     @Override

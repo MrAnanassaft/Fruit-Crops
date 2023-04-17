@@ -12,7 +12,7 @@ public class PowerApple extends Apple{
         super(x,y);
         w = 50;
         h = 50;
-
+        points = 5;
     }
 
     public void draw(DrawTool drawTool) {

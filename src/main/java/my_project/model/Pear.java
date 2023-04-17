@@ -13,6 +13,7 @@ public class Pear extends Fruit {
     private double printTimer;
 
 
+
     public Pear(double x, double y){
         super(x,y);
         width = 25;
@@ -20,6 +21,7 @@ public class Pear extends Fruit {
         nachLinks = false;
         print = false;
         printTimer = 0;
+        points = -1;
     }
 
     @Override
@@ -67,7 +69,7 @@ public class Pear extends Fruit {
     public void printPear(DrawTool drawTool){
         drawTool.setCurrentColor(new Color(0,0,0,255));
         drawTool.formatText("Arial",1,25);
-        drawTool.drawText(450,200,"In der Not frisst der Teufel Birnen");
+        drawTool.drawText(250,200,"si no hay comida el diablo quiere pera");
     }
     public void setPrintBool(){
         if(print == false){
@@ -75,6 +77,7 @@ public class Pear extends Fruit {
         }
         printTimer = 0;
     }
+
     //TODO 04 Lege eine Methode jumpBack() an, die bei Aufruf das Pear-Objekt oben am oberen Bildschirmrand an einer zufälligen x-Position positioniert.
 }
 

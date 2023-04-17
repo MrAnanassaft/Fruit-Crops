@@ -6,8 +6,7 @@ import KAGO_framework.model.InteractiveGraphicalObject;
 import KAGO_framework.view.DrawTool;
 
 
-import javax.naming.ldap.Control;
-import java.awt.event.KeyEvent;
+import java.awt.*;
 
 public class Player extends InteractiveGraphicalObject {
 
@@ -22,6 +21,9 @@ public class Player extends InteractiveGraphicalObject {
     private int keyToGoLeft;
     private int keyToGoRight;
     private int direction;
+    private String s;
+    private boolean winner1;
+    private boolean winner2;
 
     public Player(double x, double y, int leftKey, int rightKey){
         this.x = x;
@@ -31,7 +33,7 @@ public class Player extends InteractiveGraphicalObject {
         speed = 150;
         width = 80;
         height = 40;
-
+        points = 0;
 
         this.keyToGoLeft    = leftKey; //KeyEvent.VK_A;
         this.keyToGoRight   = rightKey;//KeyEvent.VK_D;
@@ -40,10 +42,24 @@ public class Player extends InteractiveGraphicalObject {
 
     @Override
     public void draw(DrawTool drawTool) {
-        drawTool.setCurrentColor(157,152,3,255);
+        drawTool.setCurrentColor(new Color(255, 239, 0));
         drawTool.drawFilledRectangle(x,y,width,height);
         drawTool.setCurrentColor(0,0,0,255);
         drawTool.drawRectangle(x,y,width,height);
+        drawPoints(drawTool);
+        if(winner1){
+            drawTool.setCurrentColor(new Color(255, 255, 255));
+            drawTool.drawFilledRectangle(0,0,1600,1024);
+            drawTool.setCurrentColor(new Color(0,0,0,255));
+            drawTool.formatText("Arial",1,50);
+            drawTool.drawText(150,200,"PLAYER 1 WON CONGRATS");
+        }else if(winner2){
+            drawTool.setCurrentColor(new Color(255, 255, 255));
+            drawTool.drawFilledRectangle(0,0,1600,1024);
+            drawTool.setCurrentColor(new Color(0,0,0,255));
+            drawTool.formatText("Arial",1,50);
+            drawTool.drawText(150,200,"PLAYER 2 WON CONGRATS");
+        }
     }
 
     @Override
@@ -62,6 +78,7 @@ public class Player extends InteractiveGraphicalObject {
             }
 
         }
+
     }
 
     @Override
@@ -108,5 +125,23 @@ public class Player extends InteractiveGraphicalObject {
     public double getSpeedTimer(){
         return speedTimer;
     }
+    public void setPoints(int points){
+        this.points = this.points + points;
+    }
+    public int getPoints1(){
+        return points;
+    }
 
+    public void drawPoints(DrawTool drawTool){
+        this.s = String.valueOf(getPoints1());
+        drawTool.setCurrentColor(new Color(0,0,0,255));
+        drawTool.formatText("Arial",1,25);
+        drawTool.drawText(x,y,s);
+    }
+    public void winner1(){
+        winner1 = true;
+    }
+    public void winner2(){
+        winner2 = true;
+    }
 }

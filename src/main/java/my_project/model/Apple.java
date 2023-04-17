@@ -12,6 +12,7 @@ public class Apple extends Fruit {
     public Apple(double x, double y){
         super(x,y);
         radius = 30;
+        points = 1;
     }
 
     @Override
@@ -32,7 +33,16 @@ public class Apple extends Fruit {
         this.y = radius;
         this.x = Math.random()*(1000-radius*2)+radius;
     }
-
+    public void changePoints(){
+        if(points > 0){
+            this.points = this.points * -1;
+        }
+    }
+    public void changePointsBack(){
+        if(points < 0){
+            this.points = this.points * -1;
+        }
+    }
 
     //TODO 02 Lege eine Methode jumpBack() an, die bei Aufruf das Apple-Objekt oben am oberen Bildschirmrand an einer zufälligen x-Position positioniert.
 }

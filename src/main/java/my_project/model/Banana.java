@@ -27,7 +27,7 @@ public class Banana extends Fruit{
 
     public void jumpBack() {
         this.y = 0;
-        this.x = Math.random()*(Config.WINDOW_WIDTH-width);
+        this.x = Math.random()*(300-width);
     }
 
 }

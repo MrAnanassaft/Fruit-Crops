@@ -31,7 +31,7 @@ public class Apple extends Fruit {
 
     public void jumpBack(){
         this.y = radius;
-        this.x = Math.random()*(1000-radius*2)+radius;
+        this.x = Math.random()*(300-radius*2)+radius;
     }
     public void changePoints(){
         if(points > 0){

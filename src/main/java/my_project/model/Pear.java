@@ -8,7 +8,7 @@ import java.awt.*;
 public class Pear extends Fruit {
 
     //Attribute
-    private boolean nachLinks;
+    private boolean toLeft;
     private boolean print;
     private double printTimer;
 
@@ -18,7 +18,7 @@ public class Pear extends Fruit {
         super(x,y);
         width = 25;
         height = 35;
-        nachLinks = false;
+        toLeft = false;
         print = false;
         printTimer = 0;
         points = -1;
@@ -45,31 +45,32 @@ public class Pear extends Fruit {
             print = false;
             printTimer = 0;
         }
-
-        if(timer > 2 && timer < 4){
-            nachLinks = true;
-        }
-        if(timer > 4){
-            nachLinks = false;
-            timer = 0;
-        }
-        if(nachLinks){
-            this.x = this.x + 100*dt;
-        }else{
-            this.x = this.x - 100*dt;
-        }
     }
         //TODO 03 Eine Birne soll von oben herab fallen. Sobald sie unten den Bildschirmrand berührt wird die Methode jumpBack() aufgerufen (siehe TODO 04).
 
     public void jumpBack(){
         this.y = 0;
-        this.x = Math.random()*(1000-width-200);
+        this.x = Math.random()*(300-width);
     }
 
     public void printPear(DrawTool drawTool){
         drawTool.setCurrentColor(new Color(0,0,0,255));
         drawTool.formatText("Arial",1,25);
         drawTool.drawText(250,200,"si no hay comida el diablo quiere pera");
+    }
+    public void goLeft(double dt){
+        if(timer > 2 && timer < 4){
+            toLeft = true;
+        }
+        if(timer > 4){
+            toLeft = false;
+            timer = 0;
+        }
+        if(toLeft){
+            this.x = this.x + 100*dt;
+        }else{
+            this.x = this.x - 100*dt;
+        }
     }
     public void setPrintBool(){
         if(print == false){

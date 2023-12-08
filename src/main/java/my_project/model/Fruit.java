@@ -29,9 +29,9 @@ public class Fruit extends GraphicalObject {
     public void update(double dt) {
         this.y = this.y + speed *dt;
         timer = timer + dt;
-        if(this.y >= Config.WINDOW_HEIGHT-15-this.height*2){
-            jumpBack();
-        }
+        //if(this.y >= Config.WINDOW_HEIGHT-15-this.height*2){
+        //    jumpBack();
+        //}
     }
 
     public void jumpBack(){}

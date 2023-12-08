@@ -4,6 +4,8 @@ import KAGO_framework.control.ViewController;
 import KAGO_framework.model.GraphicalObject;
 import my_project.Config;
 import my_project.model.*;
+import org.w3c.dom.ls.LSOutput;
+
 import java.awt.event.KeyEvent;
 
 /**
@@ -37,6 +39,11 @@ public class ProgramController {
     //private Player p2;
     private Queue newQueue;
     private Background background;
+    private List newList = new List<GraphicalObject>();
+    private double appleTimer;
+    private double pearTimer;
+    private double bananaTimer;
+
 
     /**
      * Konstruktor
@@ -57,7 +64,9 @@ public class ProgramController {
         newQueue = new Queue<Class<?>>();
         background = new Background();
         viewController.draw(background);
-
+        appleTimer = 1;
+        pearTimer = .5;
+        bananaTimer = 0;
 
         /*
         PowerA1 = new PowerApple(100,100);
@@ -65,6 +74,8 @@ public class ProgramController {
         PowerA2 = new PowerApple(Math.random()*(300-50) + 50, Math.random()*(Config.WINDOW_HEIGHT-50) + 50);
         viewController.draw(PowerA2);
          */
+
+        /*
         apple01 = new Apple(Math.random()*(300-50) + 50, Math.random()*(Config.WINDOW_HEIGHT-50) + 50);
         viewController.draw(apple01);
         apple02 = new Apple(Math.random()*(300-50) + 50, Math.random()*(Config.WINDOW_HEIGHT-50) + 50);
@@ -84,13 +95,14 @@ public class ProgramController {
         viewController.draw(pear03);
         pear04 = new Pear(Math.random()*(300-50) + 50, Math.random()*(Config.WINDOW_HEIGHT-50) + 50);
         viewController.draw(pear04);
-
+        banana1 = new Banana(Math.random()*(300-50) + 50, Math.random()*(Config.WINDOW_HEIGHT-50) + 50);
+        viewController.draw(banana1);
+         */
         /*
         PowerP1 = new PowerPear(Math.random()*(300-50) + 50, Math.random()*(Config.WINDOW_HEIGHT-50) + 50);
         viewController.draw(PowerP1);
         */
-        banana1 = new Banana(Math.random()*(300-50) + 50, Math.random()*(Config.WINDOW_HEIGHT-50) + 50);
-        viewController.draw(banana1);
+
 
         p1 = new Player(50, Config.WINDOW_HEIGHT-100,KeyEvent.VK_A,KeyEvent.VK_D);
         //p2 = new Player(870, Config.WINDOW_HEIGHT-100,KeyEvent.VK_LEFT,KeyEvent.VK_RIGHT);
@@ -110,6 +122,41 @@ public class ProgramController {
     public void updateProgram(double dt){
         //TODO 08 Nachdem Sie die TODOs 01-07 erledigt haben: Setzen Sie um, dass im Falle einer Kollision (siehe TODO 06 bzw. 07) zwischen dem Spieler und dem Apfel bzw. dem Spieler und der Birne, die jumpBack()-Methode von dem Apfel bzw. der Birne aufgerufen wird.
         //Weitere TODOs folgen und werden im Unterricht formuliert. Spätestens nach TODO 08 sollte der Aufbau des Projekts durchdacht werden.
+        appleTimer += dt;
+        pearTimer += dt;
+        bananaTimer += dt;
+        if(appleTimer > 1.5){
+            Apple newApple = new Apple(Math.random()*285,10);
+            newList.append(newApple);
+            viewController.draw(newApple);
+            appleTimer = 0;
+        }
+        if(pearTimer > 1.5){
+            Pear newPear = new Pear(Math.random()*285,10);
+            newList.append(newPear);
+            viewController.draw(newPear);
+            pearTimer = 0;
+        }
+        if(bananaTimer > 1.5){
+            Banana newBanana = new Banana(Math.random()*285,10);
+            newList.append(newBanana);
+            viewController.draw(newBanana);
+            bananaTimer = 0;
+        }
+        newList.toFirst();
+        for(int i = 0; newList.hasAccess(); i++){
+            GraphicalObject help = (GraphicalObject) newList.getContent();
+            if(checkAndHandleCollision(help)){
+                System.out.println("picked");
+                wasPicked(help);
+                newList.remove();
+            }
+            if(help.getY() > 750){
+                help = null;
+                newList.remove();
+            }
+            newList.next();
+        }
 
         /*
         if(p1.getPoints1() > 50){
@@ -119,6 +166,8 @@ public class ProgramController {
             p2.winner2();
         }
          */
+
+        /*
         if(checkAndHandleCollisionApple(apple01)){
             apple01.jumpBack();
             //p1.setPoints(apple01.getPoints());
@@ -168,7 +217,7 @@ public class ProgramController {
             //PowerA1.changePointsBack();
             //PowerA2.changePointsBack();
         }
-
+         */
         /*
             if(checkAndHandleCollisionPear(PowerP1)){
             PowerP1.jumpBack();
@@ -205,6 +254,7 @@ public class ProgramController {
             p1.setFalseSpeed();
             p1.resetSpeedTimer();
         }
+        System.out.println(p1.getX() + "    " + p1.getY());
         /*
         if(checkAndHandleCollision2Apple(apple01)){
             apple01.jumpBack();
@@ -302,16 +352,16 @@ public class ProgramController {
 
 
     }
-    private boolean checkAndHandleCollisionApple(Apple a){
-        return a.collidesWith(p1);
+    private boolean checkAndHandleCollision(GraphicalObject a){
+        return collidesWith(a);
     }
 
-    private boolean checkAndHandleCollisionPear(Pear p){
-        return p.collidesWith(p1);
-    }
-    private boolean checkAndHandleCollisionBanana(Banana b){
-        return b.collidesWith(p1);
-    }
+    //private boolean checkAndHandleCollisionPear(Pear p){
+        //return p.collidesWith(p1);
+    //}
+    //private boolean checkAndHandleCollisionBanana(Banana b){
+       // return b.collidesWith(p1);
+    //}
     /*
     private boolean checkAndHandleCollision2Apple(Apple a2){
         return a2.collidesWith(p2);
@@ -327,10 +377,16 @@ public class ProgramController {
     //TODO 06 Fügen Sie eine Methode checkAndHandleCollision(Apple a) hinzu. Diese gibt true zurück, falls das Apple-Objekt mit dem Player-Objekt kollidiert. Nutzen Sie hierzu die collidesWith-Methode der Klasse GraphicalObject.
 
     //TODO 07 Fügen Sie eine Methode checkAndHandleCollision(Pear p) hinzu. Diese gibt true zurück, falls das Pear-Objekt mit dem Player-Objekt kollidiert. Nutzen Sie hierzu die collidesWith-Methode der Klasse GraphicalObject.
-    private void wasPickedApple(Apple a){
-        if(checkAndHandleCollisionApple(a)){
+    private void wasPicked(GraphicalObject a){
+        if(checkAndHandleCollision(a)){
             newQueue.enqueue(a);
         }
     }
-
+    private boolean collidesWith(GraphicalObject gO) {
+        if (p1.getX()  < gO.getX() - gO.getWidth() && p1.getX() + p1.getWidth()> gO.getX() && p1.getY() < gO.getY() + gO.getHeight() && p1.getY() + p1.getHeight() > gO.getY()) {
+            return true;
+        }
+        //System.out.println("tried");
+        return false;
+    }
 }

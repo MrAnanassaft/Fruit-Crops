@@ -14,14 +14,17 @@ public class Banana extends Fruit{
     private ArrayList<BufferedImage> images = new ArrayList<>();
     public Banana(double x, double y){
         super(x,y);
-        width = 20;
-        height = 50;
+        width = 15;
+        height = 20;
         points = 2;
         setPictures();
     }
 
     public void draw(DrawTool drawTool){
-        drawTool.drawImage(images.get(0), x , y );
+        if(y < 750){
+            drawTool.drawImage(images.get(0), x , y );
+        }
+
         /*
             drawTool.setCurrentColor(new Color(255, 255, 0));
             drawTool.drawFilledRectangle(x,y,width,height);

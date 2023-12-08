@@ -17,7 +17,8 @@ public class Apple extends Fruit {
 
     public Apple(double x, double y){
         super(x,y);
-        radius = 30;
+        width = 15;
+        height = 20;
         points = 1;
         setPictures();
     }
@@ -28,7 +29,10 @@ public class Apple extends Fruit {
         //drawTool.drawFilledCircle(x,y,radius);
         //drawTool.setCurrentColor(0,0,0,255);
         //drawTool.drawCircle(x,y,radius);
-        drawTool.drawImage(images.get(0), x , y );
+        if(y < 750){
+            drawTool.drawImage(images.get(0), x , y );
+        }
+
     }
 
     @Override
@@ -38,7 +42,7 @@ public class Apple extends Fruit {
     }
 
     public void jumpBack(){
-        this.y = radius;
+        this.y = 10;
         this.x = Math.random()*(300-radius*2)+radius;
     }
 

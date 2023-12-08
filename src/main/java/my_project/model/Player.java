@@ -46,6 +46,7 @@ public class Player extends InteractiveGraphicalObject {
         drawTool.drawFilledRectangle(x,y,width,height);
         drawTool.setCurrentColor(0,0,0,255);
         drawTool.drawRectangle(x,y,width,height);
+        /*
         drawPoints(drawTool);
         if(winner1){
             drawTool.setCurrentColor(new Color(255, 255, 255));
@@ -60,6 +61,8 @@ public class Player extends InteractiveGraphicalObject {
             drawTool.formatText("Arial",1,50);
             drawTool.drawText(150,200,"PLAYER 2 WON CONGRATS");
         }
+         */
+
     }
 
     @Override
@@ -125,13 +128,14 @@ public class Player extends InteractiveGraphicalObject {
     public double getSpeedTimer(){
         return speedTimer;
     }
+
+    /*
     public void setPoints(int points){
         this.points = this.points + points;
     }
     public int getPoints1(){
         return points;
     }
-
     public void drawPoints(DrawTool drawTool){
         this.s = String.valueOf(getPoints1());
         drawTool.setCurrentColor(new Color(0,0,0,255));
@@ -144,4 +148,9 @@ public class Player extends InteractiveGraphicalObject {
     public void winner2(){
         winner2 = true;
     }
+     */
+
+
+
+
 }

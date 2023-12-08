@@ -3,7 +3,12 @@ package my_project.model;
 
 import KAGO_framework.view.DrawTool;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class Pear extends Fruit {
 
@@ -11,7 +16,7 @@ public class Pear extends Fruit {
     private boolean toLeft;
     private boolean print;
     private double printTimer;
-
+    private ArrayList<BufferedImage> images = new ArrayList<>();
 
 
     public Pear(double x, double y){
@@ -22,10 +27,13 @@ public class Pear extends Fruit {
         print = false;
         printTimer = 0;
         points = -1;
+        setPictures();
     }
 
     @Override
     public void draw(DrawTool drawTool) {
+        drawTool.drawImage(images.get(0), x , y );
+        /*
         drawTool.setCurrentColor(0,255,0,255);
         drawTool.drawFilledRectangle(x,y,width,height);
         drawTool.setCurrentColor(0,0,0,255);
@@ -33,6 +41,7 @@ public class Pear extends Fruit {
         if(print == true){
             printPear(drawTool);
         }
+         */
     }
 
     @Override
@@ -78,7 +87,16 @@ public class Pear extends Fruit {
         }
         printTimer = 0;
     }
+    public void setPictures(){
+        addPicturesToList("src/main/resources/graphic/Birne.png");
+    }
+    private void addPicturesToList(String pathToImage) {
+        try {
+            images.add(ImageIO.read(new File(pathToImage)));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
-    //TODO 04 Lege eine Methode jumpBack() an, die bei Aufruf das Pear-Objekt oben am oberen Bildschirmrand an einer zufälligen x-Position positioniert.
 }
 

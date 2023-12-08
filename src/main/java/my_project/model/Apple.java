@@ -4,23 +4,31 @@ package my_project.model;
 import KAGO_framework.view.DrawTool;
 import my_project.Config;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+
 public class Apple extends Fruit {
 
     //Attribute
-
+    private ArrayList<BufferedImage> images = new ArrayList<>();
 
     public Apple(double x, double y){
         super(x,y);
         radius = 30;
         points = 1;
+        setPictures();
     }
 
     @Override
     public void draw(DrawTool drawTool) {
-        drawTool.setCurrentColor(255,0,0,255);
-        drawTool.drawFilledCircle(x,y,radius);
-        drawTool.setCurrentColor(0,0,0,255);
-        drawTool.drawCircle(x,y,radius);
+        //drawTool.setCurrentColor(255,0,0,255);
+        //drawTool.drawFilledCircle(x,y,radius);
+        //drawTool.setCurrentColor(0,0,0,255);
+        //drawTool.drawCircle(x,y,radius);
+        drawTool.drawImage(images.get(0), x , y );
     }
 
     @Override
@@ -33,16 +41,29 @@ public class Apple extends Fruit {
         this.y = radius;
         this.x = Math.random()*(300-radius*2)+radius;
     }
-    public void changePoints(){
-        if(points > 0){
-            this.points = this.points * -1;
+
+
+        public void changePoints(){
+            if(points > 0){
+                this.points = this.points * -1;
+            }
         }
+        public void changePointsBack(){
+            if(points < 0){
+                this.points = this.points * -1;
+            }
+        }
+
+    public void setPictures(){
+        addPicturesToList("src/main/resources/graphic/Apfel.png");
     }
-    public void changePointsBack(){
-        if(points < 0){
-            this.points = this.points * -1;
+    private void addPicturesToList(String pathToImage) {
+        try {
+            images.add(ImageIO.read(new File(pathToImage)));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
-    //TODO 02 Lege eine Methode jumpBack() an, die bei Aufruf das Apple-Objekt oben am oberen Bildschirmrand an einer zufälligen x-Position positioniert.
+
 }

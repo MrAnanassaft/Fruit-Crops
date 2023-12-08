@@ -29,7 +29,10 @@ public class Apple extends Fruit {
         //drawTool.drawFilledCircle(x,y,radius);
         //drawTool.setCurrentColor(0,0,0,255);
         //drawTool.drawCircle(x,y,radius);
-        if(y < 750){
+        if(y > 750){
+            pickedUp();
+        }
+        if(canDraw){
             drawTool.drawImage(images.get(0), x , y );
         }
 

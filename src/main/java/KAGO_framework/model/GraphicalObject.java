@@ -22,12 +22,13 @@ public class GraphicalObject implements Drawable {
 
     // Referenzen
     private BufferedImage myImage;
+    protected boolean canDraw;
 
     /**
      * Der generische Konstruktur ermöglicht einen optionalen super-Aufruf in den Unterklassen
      */
     public GraphicalObject(){
-
+        canDraw = true;
     }
 
     /**
@@ -51,7 +52,9 @@ public class GraphicalObject implements Drawable {
         this.y = y;
         this.setNewImage(picturePath);
     }
-
+    public void pickedUp(){
+        canDraw = false;
+    }
     /**
      * Lädt ein Bild, das zur Repräsentation des Objekts benutzt werden kann.
      * Passt automatisch die Attribute für Breite und Höhe der des Bildes an.

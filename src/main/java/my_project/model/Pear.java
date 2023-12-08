@@ -32,10 +32,12 @@ public class Pear extends Fruit {
 
     @Override
     public void draw(DrawTool drawTool) {
-        if(y < 750){
+        if(y > 750){
+            pickedUp();
+        }
+        if(canDraw){
             drawTool.drawImage(images.get(0), x , y );
         }
-
         /*
         drawTool.setCurrentColor(0,255,0,255);
         drawTool.drawFilledRectangle(x,y,width,height);

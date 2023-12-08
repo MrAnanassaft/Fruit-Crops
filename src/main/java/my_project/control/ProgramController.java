@@ -104,7 +104,7 @@ public class ProgramController {
         */
 
 
-        p1 = new Player(50, Config.WINDOW_HEIGHT-100,KeyEvent.VK_A,KeyEvent.VK_D);
+        p1 = new Player(50, Config.WINDOW_HEIGHT-200,KeyEvent.VK_A,KeyEvent.VK_D);
         //p2 = new Player(870, Config.WINDOW_HEIGHT-100,KeyEvent.VK_LEFT,KeyEvent.VK_RIGHT);
 
         viewController.draw(p1);
@@ -150,6 +150,7 @@ public class ProgramController {
                 System.out.println("picked");
                 wasPicked(help);
                 newList.remove();
+                help.pickedUp();
             }
             if(help.getY() > 750){
                 help = null;

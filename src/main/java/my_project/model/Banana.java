@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 public class Banana extends Fruit{
     private ArrayList<BufferedImage> images = new ArrayList<>();
+
     public Banana(double x, double y){
         super(x,y);
         width = 15;
@@ -21,7 +22,10 @@ public class Banana extends Fruit{
     }
 
     public void draw(DrawTool drawTool){
-        if(y < 750){
+        if(y > 750){
+            pickedUp();
+        }
+        if(canDraw){
             drawTool.drawImage(images.get(0), x , y );
         }
 

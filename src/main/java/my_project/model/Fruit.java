@@ -19,6 +19,7 @@ public class Fruit extends GraphicalObject {
 
     protected  int points;
 
+
     public Fruit(double x, double y){
         this.x = x;
         this.y = y;

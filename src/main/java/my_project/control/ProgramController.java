@@ -83,7 +83,7 @@ public class ProgramController {
             appleTimer = 0;
         }
 
-        /*
+
         if(pearTimer > 1.5){
             Pear newPear = new Pear(Math.random()*285,10);
             newList.append(newPear);
@@ -96,7 +96,7 @@ public class ProgramController {
             viewController.draw(newBanana);
             bananaTimer = 0;
         }
-         */
+
         newList.toFirst();
         for(int i = 0; newList.hasAccess(); i++){
             GraphicalObject help = (GraphicalObject) newList.getContent();

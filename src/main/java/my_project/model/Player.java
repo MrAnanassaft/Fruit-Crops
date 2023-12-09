@@ -152,6 +152,9 @@ public class Player extends InteractiveGraphicalObject {
             shootTimer += dt;
         }
     }
+    public double getDegrees(){
+        return degrees;
+    }
     public void setDidShoot(){
         didShoot = true;
     }

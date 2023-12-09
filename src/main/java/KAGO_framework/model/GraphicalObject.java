@@ -19,7 +19,7 @@ public class GraphicalObject implements Drawable {
     protected double x = 0, y = 0; // Die Koordinaten des Objekts
     protected double width = 0, height = 0; // Die rechteckige Ausdehnung des Objekts, wobei x/y die obere, linke Ecke angeben
     protected double radius = 0; //Falls ein Radius gesetzt wurde (also größer als 0 ist), wird collidesWith angepasst.
-
+    protected String fruit;
     // Referenzen
     private BufferedImage myImage;
     protected boolean canDraw;
@@ -191,6 +191,9 @@ public class GraphicalObject implements Drawable {
         double dy = Math.sin(degrees/180*Math.PI)*speed*dt;
         x = x + dx;
         y = y + dy;
+    }
+    public String getFruitType(){
+        return fruit;
     }
 
     // Sondierende Methoden: "getter"

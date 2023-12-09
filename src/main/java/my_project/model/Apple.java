@@ -5,6 +5,7 @@ import KAGO_framework.view.DrawTool;
 import my_project.Config;
 
 import javax.imageio.ImageIO;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -15,12 +16,13 @@ public class Apple extends Fruit {
     //Attribute
     private ArrayList<BufferedImage> images = new ArrayList<>();
 
-    public Apple(double x, double y){
-        super(x,y);
+    public Apple(double x, double y,boolean isStart,Player player){
+        super(x,y,isStart,player);
         width = 15;
         height = 20;
         points = 1;
         setPictures();
+        fruit = "apple";
     }
 
     @Override
@@ -32,10 +34,16 @@ public class Apple extends Fruit {
         if(y > 750){
             pickedUp();
         }
-        if(canDraw){
+        if(canDraw && isStart()){
             drawTool.drawImage(images.get(0), x , y );
         }
-
+        if(!isStart()){
+            g2d = drawTool.getGraphics2D();
+            AffineTransform old = g2d.getTransform();
+            g2d.rotate(degrees+Math.PI*0.5,x,y);
+            drawTool.drawImage(images.get(0), x , y );
+            g2d.setTransform(old);
+        }
     }
 
     @Override
@@ -64,7 +72,7 @@ public class Apple extends Fruit {
     public void setPictures(){
         addPicturesToList("src/main/resources/graphic/Apfel.png");
     }
-    private void addPicturesToList(String pathToImage) {
+    protected void addPicturesToList(String pathToImage) {
         try {
             images.add(ImageIO.read(new File(pathToImage)));
         } catch (IOException e) {

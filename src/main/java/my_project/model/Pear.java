@@ -5,6 +5,7 @@ import KAGO_framework.view.DrawTool;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -19,8 +20,8 @@ public class Pear extends Fruit {
     private ArrayList<BufferedImage> images = new ArrayList<>();
 
 
-    public Pear(double x, double y){
-        super(x,y);
+    public Pear(double x, double y, boolean isStart, Player player){
+        super(x,y,isStart,player);
         width = 15;
         height = 20;
         toLeft = false;
@@ -28,14 +29,16 @@ public class Pear extends Fruit {
         printTimer = 0;
         points = -1;
         setPictures();
+        fruit = "pear";
     }
 
-    @Override
+
     public void draw(DrawTool drawTool) {
+
         if(y > 750){
             pickedUp();
         }
-        if(canDraw){
+        if(canDraw && isStart()){
             drawTool.drawImage(images.get(0), x , y );
         }
         /*
@@ -47,6 +50,13 @@ public class Pear extends Fruit {
             printPear(drawTool);
         }
          */
+        if(!isStart()){
+            g2d = drawTool.getGraphics2D();
+            AffineTransform old = g2d.getTransform();
+            g2d.rotate(degrees+Math.PI*0.5,x,y);
+            drawTool.drawImage(images.get(0), x , y );
+            g2d.setTransform(old);
+        }
     }
 
     @Override

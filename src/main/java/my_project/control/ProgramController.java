@@ -25,7 +25,7 @@ public class ProgramController {
 
     private Player p1;
 
-    private Queue newQueue;
+    private Queue<GraphicalObject> newQueue;
     private Background background;
     private List newList = new List<GraphicalObject>();
     private double appleTimer;
@@ -50,7 +50,7 @@ public class ProgramController {
      * Sie erstellt die leeren Datenstrukturen, zu Beginn nur eine Queue
      */
     public void startProgram() {
-        newQueue = new Queue<Class<?>>();
+        newQueue = new Queue();
         background = new Background();
         viewController.draw(background);
         appleTimer = 1;
@@ -76,8 +76,10 @@ public class ProgramController {
         appleTimer += dt;
         pearTimer += dt;
         bananaTimer += dt;
+        //System.out.println("funktioniert");
         if(appleTimer > 1.5){
-            Apple newApple = new Apple(Math.random()*285,10);
+            System.out.println("funktioniert");
+            Apple newApple = new Apple(Math.random()*285,10,true,p1);
             newList.append(newApple);
             viewController.draw(newApple);
             appleTimer = 0;
@@ -85,13 +87,13 @@ public class ProgramController {
 
 
         if(pearTimer > 1.5){
-            Pear newPear = new Pear(Math.random()*285,10);
+            Pear newPear = new Pear(Math.random()*285,10,true,p1);
             newList.append(newPear);
             viewController.draw(newPear);
             pearTimer = 0;
         }
         if(bananaTimer > 1.5){
-            Banana newBanana = new Banana(Math.random()*285,10);
+            Banana newBanana = new Banana(Math.random()*285,10,true,p1);
             newList.append(newBanana);
             viewController.draw(newBanana);
             bananaTimer = 0;
@@ -131,6 +133,7 @@ public class ProgramController {
 
     private void wasPicked(GraphicalObject a){
         if(checkAndHandleCollision(a)){
+
             newQueue.enqueue(a);
         }
     }
@@ -142,12 +145,20 @@ public class ProgramController {
     }
     private void shoot(){
         if(p1.getDidShoot() && !newQueue.isEmpty() && p1.canShoot()){
-            //Class<?> drawable = newQueue.front();
-            //System.out.println(drawable);
-            //viewController.draw();
-            //drawable.setX(800);
-           // drawable.setY(400);
-            newQueue.dequeue();
+            GraphicalObject go = newQueue.front();
+            if(go.getFruitType().equalsIgnoreCase("apple")){
+                Apple apple = new Apple(p1.getX()+67,p1.getY(),false,p1);
+                viewController.draw(apple);
+                newQueue.dequeue();
+            } else if(go.getFruitType().equalsIgnoreCase("banana")) {
+                Banana banana = new Banana(p1.getX()+67,p1.getY(),false,p1);
+                viewController.draw(banana);
+                newQueue.dequeue();
+            } else if(go.getFruitType().equalsIgnoreCase("pear")){
+                Pear pear = new Pear(p1.getX()+67,p1.getY(),false,p1);
+                viewController.draw(pear);
+                newQueue.dequeue();
+            }
             p1.shooted();
         }
     }

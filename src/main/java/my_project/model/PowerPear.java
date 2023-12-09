@@ -7,8 +7,8 @@ import java.awt.*;
 public class PowerPear extends Pear{
     private double w;
     private double h;
-    public PowerPear(double x, double y){
-        super(x,y);
+    public PowerPear(double x, double y,boolean isStart,Player player){
+        super(x,y,isStart,player);
         w = 50;
         h = 50;
         points = -5;

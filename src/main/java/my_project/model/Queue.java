@@ -21,10 +21,7 @@ public class Queue<ContentType> {
         public ContentType getContent() {
             return content;
         }
-        public String getMyClass(){
-            System.out.println(content.getClass());
-            return null;
-        }
+
     }
 
     private QueueNode head;

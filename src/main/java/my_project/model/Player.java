@@ -8,6 +8,7 @@ import KAGO_framework.view.DrawTool;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -20,18 +21,22 @@ public class Player extends InteractiveGraphicalObject {
     private boolean speedBoolean;
     private double shootTimer;
     private boolean didShoot;
-    //Attribute
+    private boolean mouseDown;
+    private double mouseY;
+    private double mouseX;
+    private double shootCooldown = 1;
+    private double shootingTimer;
+    private double degrees = 0;
+    private boolean couldShoot;
     private double speed;
     private int points;
     private ArrayList<BufferedImage> images = new ArrayList<>();
 
-    //Tastennummern zur Steuerung
     private int keyToGoLeft;
     private int keyToGoRight;
     private int direction;
-    private String s;
-    private boolean winner1;
-    private boolean winner2;
+
+
 
     public Player(double x, double y, int leftKey, int rightKey){
         this.x = x;
@@ -53,28 +58,6 @@ public class Player extends InteractiveGraphicalObject {
 
     @Override
     public void draw(DrawTool drawTool) {
-        /*
-        drawTool.setCurrentColor(new Color(255, 239, 0));
-        drawTool.drawFilledRectangle(x,y,width,height);
-        drawTool.setCurrentColor(0,0,0,255);
-        drawTool.drawRectangle(x,y,width,height);
-         */
-        /*
-        drawPoints(drawTool);
-        if(winner1){
-            drawTool.setCurrentColor(new Color(255, 255, 255));
-            drawTool.drawFilledRectangle(0,0,1600,1024);
-            drawTool.setCurrentColor(new Color(0,0,0,255));
-            drawTool.formatText("Arial",1,50);
-            drawTool.drawText(150,200,"PLAYER 1 WON CONGRATS");
-        }else if(winner2){
-            drawTool.setCurrentColor(new Color(255, 255, 255));
-            drawTool.drawFilledRectangle(0,0,1600,1024);
-            drawTool.setCurrentColor(new Color(0,0,0,255));
-            drawTool.formatText("Arial",1,50);
-            drawTool.drawText(150,200,"PLAYER 2 WON CONGRATS");
-        }
-         */
         if(!didShoot){
             drawTool.drawImage(images.get(0), x , y );
         }else{
@@ -89,12 +72,15 @@ public class Player extends InteractiveGraphicalObject {
     @Override
     public void update(double dt) {
         timer = timer + dt;
+        shootingTimer += dt;
         //TODO 05 Überarbeiten Sie die Update-Methode derart, dass ein Player-Objekt nicht den Bildschirm verlassen kann und immer zu sehen ist.
         //if(direction == 0){
             //if(x < Config.WINDOW_WIDTH-19-this.width){
             //    x = x + speed*dt;
             //}
         //}
+        degrees = Math.atan2(mouseY - y, mouseX - x);
+
         if(ViewController.isKeyDown(65)){
             x -= speed*dt;
         }
@@ -169,6 +155,22 @@ public class Player extends InteractiveGraphicalObject {
     public void setDidShoot(){
         didShoot = true;
     }
+    public boolean getDidShoot(){
+        return didShoot;
+    }
+    public boolean isMouseDown(){
+        return mouseDown;
+    }
+    public boolean canShoot(){
+        if(shootingTimer > shootCooldown){
+            couldShoot = true;
+        }
+        return couldShoot;
+    }
+    public void shooted(){
+        couldShoot = false;
+        shootingTimer = 0;
+    }
     /*
     public void setPoints(int points){
         this.points = this.points + points;
@@ -200,7 +202,14 @@ public class Player extends InteractiveGraphicalObject {
             throw new RuntimeException(e);
         }
     }
-
-
+    public void mouseReleased(MouseEvent e) {
+        mouseDown = false;
+    }
+    public void mousePressed(MouseEvent e) {
+        mouseX = e.getX();
+        mouseY = e.getY();
+        mouseDown = true;
+        setDidShoot();
+    }
 
 }

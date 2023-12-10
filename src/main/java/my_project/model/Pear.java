@@ -50,7 +50,7 @@ public class Pear extends Fruit {
             printPear(drawTool);
         }
          */
-        if(!isStart()){
+        if(!isStart() && canDraw){
             g2d = drawTool.getGraphics2D();
             AffineTransform old = g2d.getTransform();
             g2d.rotate(degrees+Math.PI*0.5,x,y);

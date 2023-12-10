@@ -37,7 +37,7 @@ public class Apple extends Fruit {
         if(canDraw && isStart()){
             drawTool.drawImage(images.get(0), x , y );
         }
-        if(!isStart()){
+        if(!isStart()&& canDraw){
             g2d = drawTool.getGraphics2D();
             AffineTransform old = g2d.getTransform();
             g2d.rotate(degrees+Math.PI*0.5,x,y);

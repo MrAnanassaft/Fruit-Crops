@@ -32,8 +32,10 @@ public class ProgramController {
     private double appleTimer;
     private double pearTimer;
     private double bananaTimer;
+    private boolean gameActive = true;
 
     private Pig pig1;
+
 
 
     /**
@@ -63,13 +65,14 @@ public class ProgramController {
         p1 = new Player(50, Config.WINDOW_HEIGHT-200, KeyEvent.VK_A, KeyEvent.VK_D);
 
 
-        viewController.draw(p1);
-        viewController.register(p1);
+
         viewController.draw(pig1);
 
 
         pig1 = new Pig(1000, 600, viewController);
         viewController.draw(pig1);
+        viewController.draw(p1);
+        viewController.register(p1);
     }
 
     /**
@@ -77,79 +80,94 @@ public class ProgramController {
      * @param dt Zeit seit letzter Frame
      */
     public void updateProgram(double dt){
-        appleTimer += dt;
-        pearTimer += dt;
-        bananaTimer += dt;
-        //System.out.println("funktioniert");
-        if(appleTimer > 1.5){
-            Apple newApple = new Apple(Math.random()*285,10,true,p1);
-            newList.append(newApple);
-            viewController.draw(newApple);
-            appleTimer = 0;
-        }
-
-        newList2.toFirst();
-        for (int i = 0; newList2.hasAccess(); i++) {
-            GraphicalObject help = newList2.getContent();
-            if (checkAndHandleCollisionWithPig(help)) {
-                newList2.remove();
-                help = null;
-
-                // Das Schwein wurde getroffen, rufen Sie die entsprechende Methode auf
-                pig1.hitByBanana((Banana) help);
+        if(gameActive){
+            appleTimer += dt;
+            pearTimer += dt;
+            bananaTimer += dt;
+            //System.out.println("funktioniert");
+            if(appleTimer > 1.5){
+                Apple newApple = new Apple(Math.random()*285,10,true,p1);
+                newList.append(newApple);
+                viewController.draw(newApple);
+                appleTimer = 0;
             }
-            newList2.next();
-        }
 
-
-        if(pearTimer > 1.5){
-            Pear newPear = new Pear(Math.random()*285,10,true,p1);
-            newList.append(newPear);
-            viewController.draw(newPear);
-            pearTimer = 0;
-        }
-        if(bananaTimer > 1.5){
-            Pig pig1 = new Pig(1000, 600);
-            Banana banana = new Banana(Math.random() * 285, 10, true, p1, pig1);
-            newList.append(banana);
-            viewController.draw(banana);
-            bananaTimer = 0;
-        }
-
-        newList.toFirst();
-        for(int i = 0; newList.hasAccess(); i++){
-            GraphicalObject help =  newList.getContent();
-            if(checkAndHandleCollision(help)){
-                wasPicked(help);
-                newList.remove();
-                help.pickedUp();
+            newList2.toFirst();
+            for (int i = 0; newList2.hasAccess(); i++) {
+                GraphicalObject help = newList2.getContent();
+                if (checkAndHandleCollisionWithPig(help)) {
+                    newList2.remove();
+                    // Das Schwein wurde getroffen, rufen Sie die entsprechende Methode auf
+                    if(help.getFruitType().equalsIgnoreCase("banana")){
+                        pig1.hitByBanana((Banana)help);
+                    }
+                    if(help.getFruitType().equalsIgnoreCase("apple")){
+                        pig1.hitByApple((Apple)help);
+                    }
+                    if(help.getFruitType().equalsIgnoreCase("pear")){
+                        pig1.hitByPear((Pear)help);
+                    }
+                    help = null;
+                }
+                newList2.next();
             }
-            if(help.getY() > 750){
-                help = null;
-                newList.remove();
+
+
+            if(pearTimer > 1.5){
+                Pear newPear = new Pear(Math.random()*285,10,true,p1);
+                newList.append(newPear);
+                viewController.draw(newPear);
+                pearTimer = 0;
             }
-            newList.next();
-        }
-        newList2.toFirst();
-        for(int i = 0; newList2.hasAccess(); i++){
-            GraphicalObject help =  newList2.getContent();
-            if(checkAndHandleCollisionWithPig(help)){
-                newList2.remove();
-                help = null;
+            if(bananaTimer > 1.5){
+                Pig pig1 = new Pig(1000, 600);
+                Banana banana = new Banana(Math.random() * 285, 10, true, p1, pig1);
+                newList.append(banana);
+                viewController.draw(banana);
+                bananaTimer = 0;
             }
-            newList2.next();
+
+            newList.toFirst();
+            for(int i = 0; newList.hasAccess(); i++){
+                GraphicalObject help =  newList.getContent();
+                if(checkAndHandleCollision(help)){
+                    wasPicked(help);
+                    newList.remove();
+                    help.pickedUp();
+                }
+                if(help.getY() > 750){
+                    help = null;
+                    newList.remove();
+                }
+                newList.next();
+            }
+
+
+            if(p1.getSpeedBoolean() == true){
+                p1.setSpeedTimer(dt);
+            }
+            if(p1.getSpeedTimer() > 5){
+                p1.speedUp(150);
+                p1.setFalseSpeed();
+                p1.resetSpeedTimer();
+            }
+            shoot();
         }
 
-        if(p1.getSpeedBoolean() == true){
-            p1.setSpeedTimer(dt);
+        if(pig1.getScore() > 20){
+            p1.setWon();
+            gameActive = false;
+            newList2.toFirst();
+            while(newList2.hasAccess()){
+                viewController.removeDrawable(newList2.getContent());
+                newList2.next();
+            }
+            newList.toFirst();
+            while(newList.hasAccess()){
+                viewController.removeDrawable(newList.getContent());
+                newList.next();
+            }
         }
-        if(p1.getSpeedTimer() > 5){
-            p1.speedUp(150);
-            p1.setFalseSpeed();
-            p1.resetSpeedTimer();
-        }
-        shoot();
-
     }
     private boolean checkAndHandleCollision(GraphicalObject a){
         return collidesWith(a);

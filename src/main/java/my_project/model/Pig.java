@@ -34,6 +34,7 @@ public class Pig extends GraphicalObject {
         }
     }
 
+
     public void setPictures() {
         addPicturesToList("src/main/resources/graphic/Schwein.png");
     }
@@ -52,10 +53,25 @@ public class Pig extends GraphicalObject {
 
         viewController.removeDrawable(banana);
     }
+    public void hitByApple(Apple banana) {
+        increaseScore();
+        System.out.println("Oink! Das Schwein wurde von einem Apfel getroffen!");
+
+        viewController.removeDrawable(banana);
+    }
+    public void hitByPear(Pear banana) {
+        increaseScore();
+        System.out.println("Oink! Das Schwein wurde von einer Birne getroffen!");
+
+        viewController.removeDrawable(banana);
+    }
 
 
     public void increaseScore() {
         score++;
         System.out.println("Oink! Das Schwein wurde getroffen! Punktestand: " + score);
+    }
+    public int getScore(){
+        return score;
     }
 }

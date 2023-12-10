@@ -30,6 +30,7 @@ public class Player extends InteractiveGraphicalObject {
     private boolean couldShoot;
     private double speed;
     private int points;
+    private boolean won = false;
     private ArrayList<BufferedImage> images = new ArrayList<>();
 
     private int keyToGoLeft;
@@ -66,6 +67,12 @@ public class Player extends InteractiveGraphicalObject {
         if(shootTimer > 0.1){
             didShoot = false;
             shootTimer = 0;
+        }
+        if(won){
+            drawTool.setCurrentColor(Color.white);
+            drawTool.drawFilledRectangle(0,0,1600,800);
+            drawTool.setCurrentColor(Color.black);
+            drawTool.drawText(200,200,"YOU WON");
         }
     }
 
@@ -173,6 +180,9 @@ public class Player extends InteractiveGraphicalObject {
     public void shooted(){
         couldShoot = false;
         shootingTimer = 0;
+    }
+    public void setWon(){
+        won = true;
     }
     /*
     public void setPoints(int points){

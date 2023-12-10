@@ -51,19 +51,11 @@ public class Banana extends Fruit{
     private void checkCollisionWithPig() {
         // Überprüfe Kollision mit dem Schwein
         if (collidesWith(pig)) {
-            pig.hitByBanana();
             pickedUp();
         }
     }
 
-    public boolean collidesWith(GraphicalObject gO) {
-        if (gO != null && gO.getRadius() > 0 &&
-                x < gO.getX() + width && x + width > gO.getX() &&
-                y < gO.getY() + height && y + height > gO.getY()) {
-            return true;
-        }
-        return false;
-    }
+
 
     public void jumpBack() {
         this.y = 0;

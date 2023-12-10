@@ -15,6 +15,8 @@ public class Pig extends GraphicalObject {
     public Pig(double x, double y){
         this.x = x;
         this.y = y;
+        width = 143;
+        height = 59;
         canDraw = true;
         setPictures();
     }
@@ -35,7 +37,4 @@ public class Pig extends GraphicalObject {
         }
     }
 
-    public void hitByBanana() {
-        System.out.println("Oink! Das Schwein wurde von einer Banane getroffen!");
-    }
 }

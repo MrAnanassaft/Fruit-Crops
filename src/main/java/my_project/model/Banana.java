@@ -51,9 +51,12 @@ public class Banana extends Fruit{
     private void checkCollisionWithPig() {
         // Überprüfe Kollision mit dem Schwein
         if (collidesWith(pig)) {
+            pig.hitByBanana(this); // Übergeben Sie die Referenz auf die Banane
             pickedUp();
         }
     }
+
+
 
 
 

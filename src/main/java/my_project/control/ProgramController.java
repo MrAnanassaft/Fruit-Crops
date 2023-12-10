@@ -33,7 +33,7 @@ public class ProgramController {
     private double pearTimer;
     private double bananaTimer;
 
-    private Pig pig1 = new Pig(1000,600);
+    private Pig pig1;
 
 
     /**
@@ -60,7 +60,7 @@ public class ProgramController {
         bananaTimer = 0;
 
 
-        p1 = new Player(50, Config.WINDOW_HEIGHT-200,KeyEvent.VK_A,KeyEvent.VK_D);
+        p1 = new Player(50, Config.WINDOW_HEIGHT-200, KeyEvent.VK_A, KeyEvent.VK_D);
 
 
         viewController.draw(p1);
@@ -68,9 +68,8 @@ public class ProgramController {
         viewController.draw(pig1);
 
 
-        //pig1 = new Pig(1000, 600);
-
-        //viewController.draw(pig1);
+        pig1 = new Pig(1000, 600, viewController);
+        viewController.draw(pig1);
     }
 
     /**
@@ -87,6 +86,19 @@ public class ProgramController {
             newList.append(newApple);
             viewController.draw(newApple);
             appleTimer = 0;
+        }
+
+        newList2.toFirst();
+        for (int i = 0; newList2.hasAccess(); i++) {
+            GraphicalObject help = newList2.getContent();
+            if (checkAndHandleCollisionWithPig(help)) {
+                newList2.remove();
+                help = null;
+
+                // Das Schwein wurde getroffen, rufen Sie die entsprechende Methode auf
+                pig1.hitByBanana((Banana) help);
+            }
+            newList2.next();
         }
 
 

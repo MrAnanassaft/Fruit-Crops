@@ -59,7 +59,9 @@ public class Fruit extends GraphicalObject {
     public int getPoints(){
         return points;
     }
-
+    public void setSpeed(){
+        speed = 300;
+    }
 
     /*
         protected void moveTowardsPlayer(double dt){

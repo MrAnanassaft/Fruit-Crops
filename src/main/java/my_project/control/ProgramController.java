@@ -150,14 +150,17 @@ public class ProgramController {
                 Apple apple = new Apple(p1.getX()+67,p1.getY(),false,p1);
                 viewController.draw(apple);
                 newQueue.dequeue();
+                apple.setSpeed();
             } else if(go.getFruitType().equalsIgnoreCase("banana")) {
                 Banana banana = new Banana(p1.getX()+67,p1.getY(),false,p1);
                 viewController.draw(banana);
                 newQueue.dequeue();
+                banana.setSpeed();
             } else if(go.getFruitType().equalsIgnoreCase("pear")){
                 Pear pear = new Pear(p1.getX()+67,p1.getY(),false,p1);
                 viewController.draw(pear);
                 newQueue.dequeue();
+                pear.setSpeed();
             }
             p1.shooted();
         }

@@ -24,7 +24,7 @@ public class Player extends InteractiveGraphicalObject {
     private boolean mouseDown;
     private double mouseY;
     private double mouseX;
-    private double shootCooldown = 1;
+    private double shootCooldown = 0.5;
     private double shootingTimer;
     private double degrees = 0;
     private boolean couldShoot;

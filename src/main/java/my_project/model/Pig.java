@@ -34,4 +34,8 @@ public class Pig extends GraphicalObject {
             throw new RuntimeException(e);
         }
     }
+
+    public void hitByBanana() {
+        System.out.println("Oink! Das Schwein wurde von einer Banane getroffen!");
+    }
 }

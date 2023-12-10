@@ -24,6 +24,8 @@ public class GraphicalObject implements Drawable {
     private BufferedImage myImage;
     protected boolean canDraw;
 
+
+
     /**
      * Der generische Konstruktur ermöglicht einen optionalen super-Aufruf in den Unterklassen
      */
@@ -118,7 +120,7 @@ public class GraphicalObject implements Drawable {
      * @param gO Das Objekt, das auf Kollision überprüft wird
      * @return True, falls eine Kollision besteht, sonst false.
      */
-    public boolean collidesWith(GraphicalObject gO){
+    public boolean collidesWith(GraphicalObject gO) {
         if(radius == 0){
             if(gO.getRadius() == 0){
                 if ( x < gO.getX()+gO.getWidth() && x + width > gO.getX() && y < gO.getY() + gO.getHeight() && y + height > gO.getY() ) return true;

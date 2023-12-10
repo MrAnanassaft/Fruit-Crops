@@ -32,6 +32,7 @@ public class ProgramController {
     private double pearTimer;
     private double bananaTimer;
 
+    private Pig pig1;
 
 
     /**
@@ -64,8 +65,12 @@ public class ProgramController {
         viewController.draw(p1);
         viewController.register(p1);
 
+        Pig pig1 = new Pig(1000, 600);
+        viewController.draw(pig1);
 
+        pig1 = new Pig(1000, 600);
 
+        viewController.draw(pig1);
     }
 
     /**
@@ -93,9 +98,10 @@ public class ProgramController {
             pearTimer = 0;
         }
         if(bananaTimer > 1.5){
-            Banana newBanana = new Banana(Math.random()*285,10,true,p1);
-            newList.append(newBanana);
-            viewController.draw(newBanana);
+            Pig pig1 = new Pig(1000, 600);
+            Banana banana = new Banana(Math.random() * 285, 10, true, p1, pig1);
+            newList.append(banana);
+            viewController.draw(banana);
             bananaTimer = 0;
         }
 
@@ -138,26 +144,32 @@ public class ProgramController {
         }
     }
     private boolean collidesWith(GraphicalObject gO) {
-        if (p1.getX()  < gO.getX() + gO.getWidth() && p1.getX() + p1.getWidth() > gO.getX() && p1.getY() < gO.getY() + gO.getHeight() && p1.getY() + p1.getWidth() > gO.getY()) {
+        if (gO != null && p1.getX() < gO.getX() + gO.getWidth() && p1.getX() + p1.getWidth() > gO.getX() &&
+                p1.getY() < gO.getY() + gO.getHeight() && p1.getY() + p1.getWidth() > gO.getY()) {
             return true;
         }
         return false;
     }
-    private void shoot(){
-        if(p1.getDidShoot() && !newQueue.isEmpty() && p1.canShoot()){
+
+    private void shoot() {
+        if (p1.getDidShoot() && !newQueue.isEmpty() && p1.canShoot()) {
             GraphicalObject go = newQueue.front();
-            if(go.getFruitType().equalsIgnoreCase("apple")){
-                Apple apple = new Apple(p1.getX()+67,p1.getY(),false,p1);
+
+            double x = go.getX() + go.getWidth(); // Übernehme die X-Position des Originalobjekts
+            double y = go.getY(); // Übernehme die Y-Position des Originalobjekts
+
+            if (go.getFruitType().equalsIgnoreCase("apple")) {
+                Apple apple = new Apple(x, y, false, p1);
                 viewController.draw(apple);
                 newQueue.dequeue();
                 apple.setSpeed();
-            } else if(go.getFruitType().equalsIgnoreCase("banana")) {
-                Banana banana = new Banana(p1.getX()+67,p1.getY(),false,p1);
+            } else if (go.getFruitType().equalsIgnoreCase("banana")) {
+                Banana banana = new Banana(x, y, false, p1, pig1);
                 viewController.draw(banana);
                 newQueue.dequeue();
                 banana.setSpeed();
-            } else if(go.getFruitType().equalsIgnoreCase("pear")){
-                Pear pear = new Pear(p1.getX()+67,p1.getY(),false,p1);
+            } else if (go.getFruitType().equalsIgnoreCase("pear")) {
+                Pear pear = new Pear(x, y, false, p1);
                 viewController.draw(pear);
                 newQueue.dequeue();
                 pear.setSpeed();
@@ -165,4 +177,6 @@ public class ProgramController {
             p1.shooted();
         }
     }
+
+
 }
